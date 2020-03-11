@@ -61,18 +61,6 @@ public class InputReader
 				customerId++;
 			}
 
-			int countRow = 0;
-
-			while (sc.hasNextLine())
-			{
-
-				final String line = sc.nextLine();
-				for (int i = 0; i < n; i++)
-				{
-					grid[countRow][i] = terrainValueMap.get(line.charAt(i));
-				}
-				countRow++;
-			}
 
 
 			System.out.println("Finished reading file......");
