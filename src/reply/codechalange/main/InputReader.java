@@ -110,7 +110,7 @@ public class InputReader
 		try
 		{
 			final PrintWriter out = new PrintWriter(new FileWriter("resources/output.txt", false), true);
-			out.write(" Test" + " Value");
+			out.write(" Test " + " Value ");
 			out.write(objects.size() + "\n");
 			objects.forEach(result ->
 			{
