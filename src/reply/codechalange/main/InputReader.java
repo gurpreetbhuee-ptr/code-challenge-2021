@@ -27,7 +27,6 @@ public class InputReader
 
 	public static void main(final String[] args)
 	{
-		terrainValueMap = getTerrainMap();
 		//todo change the file with the input file
 		final File f = new File("resources/1_victoria_lake.txt");
 		try
@@ -87,21 +86,6 @@ public class InputReader
 		{
 			e.printStackTrace();
 		}
-	}
-
-	private static Map<Character, Integer> getTerrainMap()
-	{
-		final Map<Character, Integer> terrainValueMap = new HashMap<>();
-		terrainValueMap.put('~', 800);
-		terrainValueMap.put('*', 200);
-		terrainValueMap.put('+', 150);
-		terrainValueMap.put('X', 120);
-		terrainValueMap.put('_', 100);
-		terrainValueMap.put('H', 70);
-		terrainValueMap.put('T', 50);
-		terrainValueMap.put('#', 0);
-
-		return terrainValueMap;
 	}
 
 
