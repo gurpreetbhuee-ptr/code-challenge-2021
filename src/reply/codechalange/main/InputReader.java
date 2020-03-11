@@ -67,6 +67,7 @@ public class InputReader
 
 
 			System.out.println("Start converting response ....");
+			//todo add the conversion logic of response to the result file
 
 			WriteObjectToFile(new ArrayList<>());
 		}
