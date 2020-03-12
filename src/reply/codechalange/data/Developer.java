@@ -3,7 +3,7 @@ package reply.codechalange.data;
 import java.util.List;
 
 
-public class Developer
+public class Developer implements Employee
 {
 
 	int id;
