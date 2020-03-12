@@ -1,6 +1,10 @@
 package reply.codechalange.data;
 
-public class Manager
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Manager implements Employee
 {
 
 	int id;
@@ -38,6 +42,12 @@ public class Manager
 	public int getBonus()
 	{
 		return bonus;
+	}
+
+	@Override
+	public List<String> getSkills()
+	{
+		return Collections.EMPTY_LIST;
 	}
 
 	public void setBonus(final int bonus)
