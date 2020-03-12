@@ -12,6 +12,7 @@ public class Developer implements Employee
 	List<String> skills;
 	Point seatingLocation;
 	int skillCount;
+	boolean isAllocated;
 
 
 	public Developer(final int id, final String company, final int bonus, final List<String> skills, final int skillCount) {
@@ -96,5 +97,13 @@ public class Developer implements Employee
 		this.skillCount = skillCount;
 	}
 
+	public boolean isAllocated()
+	{
+		return isAllocated;
+	}
 
+	public void setAllocated(final boolean allocated)
+	{
+		isAllocated = allocated;
+	}
 }
