@@ -11,6 +11,17 @@ public class Manager implements Employee
 	String company;
 	int bonus;
 	Point seatingLocation;
+	boolean isAllocated;
+
+	public boolean isAllocated()
+	{
+		return isAllocated;
+	}
+
+	public void setAllocated(final boolean allocated)
+	{
+		isAllocated = allocated;
+	}
 
 	public Manager(final int id, final String company, final int bonus)
 	{

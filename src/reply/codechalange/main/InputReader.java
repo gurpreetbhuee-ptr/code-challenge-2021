@@ -13,6 +13,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Scanner;
 
 import reply.codechalange.data.Developer;
@@ -98,16 +99,15 @@ public class InputReader
 			}
 
 
-			developers.sort(new Comparator<Developer>() {
+			developers.sort(new Comparator<Developer>()
+			{
 				@Override
-				public int compare(final Developer o1, final Developer o2) {
-					return Integer.compare(o2.getBonus(),o1.getBonus());
+				public int compare(final Developer o1, final Developer o2)
+				{
+					return Integer.compare(o2.getBonus(), o1.getBonus());
 				}
 			});
 
-			for (final Developer developer : developers) {
-				System.out.println(developer.toString());
-			}
 
 
 
@@ -123,20 +123,72 @@ public class InputReader
 
 			}
 
-			managers.sort(new Comparator<Manager>() {
+			managers.sort(new Comparator<Manager>()
+			{
 				@Override
-				public int compare(final Manager o1, final Manager o2) {
-					return Integer.compare(o2.getBonus(),o1.getBonus());
+				public int compare(final Manager o1, final Manager o2)
+				{
+					return Integer.compare(o2.getBonus(), o1.getBonus());
 				}
 			});
 
-			for (final Manager manager : managers) {
-				System.out.println(manager.toString());
+
+
+
+			final List<Manager> allocatedManager = new ArrayList<>();
+
+			int manageCount = 0;
+			int devCount = 0;
+			for (int i = 0; i < rows; i++)
+			{
+				for (int j = 0; j < cols; j++)
+				{
+					final SeatingLocations seatingLocation = seatingLocations[i][j];
+					if (seatingLocation.isAvailable())
+					{
+
+						if (!seatingLocation.isDevLocation())
+						{
+
+
+							final Manager manager = managers.get(manageCount++);
+							manager.setSeatingLocation(new Point(i, j));
+							manager.setAllocated(true);
+							seatingLocation.setEmpId(manager.getId());
+							seatingLocation.setCompany(manager.getCompany());
+							//
+							checkIfDevLocationAvailabel(seatingLocations, i, j, developers, managers, rows, cols);
+							checkIfManagerLocationAvailabel(seatingLocations, i, j, developers, managers, rows, cols);
+
+							allocatedManager.add(manager);
+
+
+						}
+						else
+						{
+							final Developer developer = developers.get(devCount++);
+							developer.setSeatingLocation(new Point(i, j));
+							developer.setAllocated(true);
+							seatingLocation.setEmpId(developer.getId());
+							seatingLocation.setCompany(developer.getCompany());
+						}
+
+					}
+
+				}
 			}
 
-
-
 			System.out.println("Finished reading file......");
+
+
+			for (final Manager manager : managers)
+			{
+				System.out.println(manager.toString());
+			}
+			for (final Developer developer : developers)
+			{
+				System.out.println(developer.toString());
+			}
 
 
 			System.out.println("Start converting response ....");
@@ -152,6 +204,99 @@ public class InputReader
 		{
 			e.printStackTrace();
 		}
+	}
+
+	private static void checkIfManagerLocationAvailabel(final SeatingLocations[][] seatingLocations, final int i, final int j,
+			final List<Developer> developers, final List<Manager> managers, final int rows, final int cols)
+	{
+		final SeatingLocations seatingLocation = seatingLocations[i][j];
+		if (j + 1 < cols && seatingLocations[i][j + 1].isAvailable() && !seatingLocations[i][j + 1].isDevLocation())
+		{
+
+			final Manager toAllocatemanager = managers.stream()
+					.filter(manager -> seatingLocation.getCompany().equals(manager.getCompany()) && !manager.isAllocated()).findFirst()
+					.orElse(null);
+
+			if (Objects.nonNull(toAllocatemanager))
+			{
+
+				toAllocatemanager.setAllocated(true);
+				toAllocatemanager.setSeatingLocation(new Point(i, j + 1));
+				seatingLocations[i][j + 1].setEmpId(toAllocatemanager.getId());
+				seatingLocations[i][j + 1].setAvailable(false);
+				seatingLocations[i][j + 1].setCompany(toAllocatemanager.getCompany());
+
+			}
+
+		}
+		if (i + 1 < rows && seatingLocations[i + 1][j].isAvailable() && !seatingLocations[i + 1][j].isDevLocation())
+		{
+
+
+			final Manager toAllocatemanager = managers.stream()
+					.filter(manager -> seatingLocation.getCompany().equals(manager.getCompany()) && !manager.isAllocated()).findFirst()
+					.orElse(null);
+
+			if (Objects.nonNull(toAllocatemanager))
+			{
+				toAllocatemanager.setSeatingLocation(new Point(i + 1, j));
+				toAllocatemanager.setAllocated(true);
+				seatingLocations[i + 1][j].setEmpId(toAllocatemanager.getId());
+				seatingLocations[i + 1][j].setAvailable(false);
+				seatingLocations[i + 1][j].setCompany(toAllocatemanager.getCompany());
+
+			}
+
+		}
+
+
+	}
+
+	private static void checkIfDevLocationAvailabel(final SeatingLocations[][] seatingLocations, final int i, final int j,
+			final List<Developer> developers, final List<Manager> managers, final int rows, final int cols)
+	{
+		final SeatingLocations seatingLocation = seatingLocations[i][j];
+		if (j + 1 < cols && seatingLocations[i][j + 1].isAvailable() && seatingLocations[i][j + 1].isDevLocation())
+		{
+
+			final Developer developer1 = developers.stream()
+					.filter(developer -> seatingLocation.getCompany().equals(developer.getCompany()) && !developer.isAllocated())
+					.findFirst()
+					.orElse(null);
+
+			if (Objects.nonNull(developer1))
+			{
+
+				developer1.setAllocated(true);
+				developer1.setSeatingLocation(new Point(i, j + 1));
+				seatingLocations[i][j + 1].setEmpId(developer1.getId());
+				seatingLocations[i][j + 1].setAvailable(false);
+				seatingLocations[i][j + 1].setCompany(developer1.getCompany());
+
+			}
+
+		}
+		if (i + 1 < rows && seatingLocations[i + 1][j].isAvailable() && seatingLocations[i + 1][j].isDevLocation())
+		{
+
+
+			final Developer developer1 = developers.stream()
+					.filter(developer -> seatingLocation.getCompany().equals(developer.getCompany()) && !developer.isAllocated())
+					.findFirst()
+					.orElse(null);
+
+			if (Objects.nonNull(developer1))
+			{
+				developer1.setSeatingLocation(new Point(i + 1, j));
+				developer1.setAllocated(true);
+				seatingLocations[i + 1][j].setEmpId(developer1.getId());
+				seatingLocations[i + 1][j].setAvailable(false);
+				seatingLocations[i + 1][j].setCompany(developer1.getCompany());
+
+			}
+
+		}
+
 	}
 
 	private static void pupulateManagers(final int rows, final int noOfDevs, final List<Manager> managers, final int i)
