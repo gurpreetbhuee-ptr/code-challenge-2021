@@ -2,50 +2,74 @@ package reply.codechalange.data;
 
 import java.util.List;
 
-public class Developer {
 
-    int id;
-    String company;
-    int bonus;
-    List<String> skills;
+public class Developer
+{
 
-    public Developer(final int id, final String company, final int bonus, final List<String> skills) {
-        this.id = id;
-        this.company = company;
-        this.bonus = bonus;
-        this.skills = skills;
-    }
+	int id;
+	String company;
+	int bonus;
+	List<String> skills;
+	Point seatingLocation;
 
-    public int getId() {
-        return id;
-    }
+	public Developer(final int id, final String company, final int bonus, final List<String> skills)
+	{
+		this.id = id;
+		this.company = company;
+		this.bonus = bonus;
+		this.skills = skills;
+	}
 
-    public void setId(final int id) {
-        this.id = id;
-    }
+	public int getId()
+	{
+		return id;
+	}
+
+	public void setId(final int id)
+	{
+		this.id = id;
+	}
 
 
-    public String getCompany() {
-        return company;
-    }
+	public String getCompany()
+	{
+		return company;
+	}
 
-    public void setCompany(final String company) {
-        this.company = company;
-    }
+	public void setCompany(final String company)
+	{
+		this.company = company;
+	}
 
-    public int getBonus() {
-        return bonus;
-    }
+	public Point getSeatingLocation()
+	{
+		return seatingLocation;
+	}
 
-    public void setBonus(final int bonus) {
-        this.bonus = bonus;
-    }
+	public void setSeatingLocation(final Point seatingLocation)
+	{
+		this.seatingLocation = seatingLocation;
+	}
 
-    public List<String> getSkills() {
-        return skills;
-    }
+	public int getBonus()
+	{
+		return bonus;
+	}
 
-    public void setSkills(final List<String> skills) {
-        this.skills = skills;
-    }
+	public void setBonus(final int bonus)
+	{
+		this.bonus = bonus;
+	}
+
+	public List<String> getSkills()
+	{
+		return skills;
+	}
+
+	public void setSkills(final List<String> skills)
+	{
+		this.skills = skills;
+	}
+
+
 }

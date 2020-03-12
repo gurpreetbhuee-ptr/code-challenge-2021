@@ -4,13 +4,11 @@ public class Point
 {
 	int x;
 	int y;
-	Point parent;
 
-	public Point(final int x, final int y, final Point parent)
+	public Point(final int x, final int y)
 	{
 		this.x = x;
 		this.y = y;
-		this.parent = parent;
 	}
 
 	public int getX()
@@ -31,15 +29,5 @@ public class Point
 	public void setY(final int y)
 	{
 		this.y = y;
-	}
-
-	public Point getParent()
-	{
-		return parent;
-	}
-
-	public void setParent(final Point parent)
-	{
-		this.parent = parent;
 	}
 }
