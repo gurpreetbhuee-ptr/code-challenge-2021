@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -97,6 +98,18 @@ public class InputReader
 			}
 
 
+			developers.sort(new Comparator<Developer>() {
+				@Override
+				public int compare(final Developer o1, final Developer o2) {
+					return Integer.compare(o2.getBonus(),o1.getBonus());
+				}
+			});
+
+			for (final Developer developer : developers) {
+				System.out.println(developer.toString());
+			}
+
+
 
 			final int noOfPMs = Integer.parseInt(Files.readAllLines(Paths.get(RESOURCES_TXT)).get(rows + 2 + noOfDevs));
 
@@ -109,6 +122,18 @@ public class InputReader
 				pupulateManagers(rows, noOfDevs, managers, i);
 
 			}
+
+			managers.sort(new Comparator<Manager>() {
+				@Override
+				public int compare(final Manager o1, final Manager o2) {
+					return Integer.compare(o2.getBonus(),o1.getBonus());
+				}
+			});
+
+			for (final Manager manager : managers) {
+				System.out.println(manager.toString());
+			}
+
 
 
 			System.out.println("Finished reading file......");
@@ -142,7 +167,6 @@ public class InputReader
 
 		final Manager manager = new Manager(id, company, bonus);
 
-		System.out.println(manager.toString());
 		managers.add(manager);
 	}
 
@@ -167,7 +191,6 @@ public class InputReader
 		final Developer developer = new Developer(id, company, bonus, skills, skillCount);
 		developers.add(developer);
 
-		System.out.println(developer.toString());
 	}
 
 
