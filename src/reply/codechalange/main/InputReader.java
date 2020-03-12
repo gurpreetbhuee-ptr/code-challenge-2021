@@ -169,6 +169,8 @@ public class InputReader
 							developer.setAllocated(true);
 							seatingLocation.setEmpId(developer.getId());
 							seatingLocation.setCompany(developer.getCompany());
+							checkIfDevLocationAvailabel(seatingLocations, i, j, developers, managers, rows, cols);
+							checkIfManagerLocationAvailabel(seatingLocations, i, j, developers, managers, rows, cols);
 						}
 
 					}
