@@ -1,19 +1,10 @@
 package reply.codechalange.main;
 
-import reply.codechalange.data.Customer;
-import reply.codechalange.data.Developer;
-import reply.codechalange.data.Manager;
-import reply.codechalange.data.Output;
-import reply.codechalange.data.Point;
-import reply.codechalange.data.RouteIterator;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -21,9 +12,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Queue;
 import java.util.Scanner;
+
+import reply.codechalange.data.Developer;
+import reply.codechalange.data.Manager;
 
 
 public class InputReader
@@ -55,21 +47,23 @@ public class InputReader
 			final int cols = Integer.parseInt(firstArr[0]);
 			final int rows = Integer.parseInt(firstArr[1]);
 
-			System.out.println("cols   "+ cols);
+			System.out.println("cols   " + cols);
 
-			System.out.println("rows   "+ rows);
+			System.out.println("rows   " + rows);
 
 			final String[][] officeMap = new String[rows][cols];
 
-			final int noOfDevs = Integer.parseInt(Files.readAllLines(Paths.get("resources/a_solar.txt")).get(rows+1).trim());
+			final int noOfDevs = Integer.parseInt(Files.readAllLines(Paths.get("resources/a_solar.txt")).get(rows + 1).trim());
 
-			System.out.println("noOfDevs"+ noOfDevs);
+			System.out.println("noOfDevs" + noOfDevs);
 
 
-			for (int i = 0; i < rows; i++) {
-				final String placeLine = Files.readAllLines(Paths.get("resources/a_solar.txt")).get(i+1);
-				for (int j = 0; j < cols; j++) {
-					System.out.println("placeLine.charAt(j)"+ placeLine.charAt(j));
+			for (int i = 0; i < rows; i++)
+			{
+				final String placeLine = Files.readAllLines(Paths.get("resources/a_solar.txt")).get(i + 1);
+				for (int j = 0; j < cols; j++)
+				{
+					System.out.println("placeLine.charAt(j)" + placeLine.charAt(j));
 					//reading from file 1 and 0 if 1 then store true else store false in grid
 					officeMap[i][j] = String.valueOf(placeLine.charAt(j));
 
@@ -78,19 +72,21 @@ public class InputReader
 
 			final List<Developer> developers = new ArrayList<>();
 
-			for(int i = 0; i < noOfDevs; i++){
+			for (int i = 0; i < noOfDevs; i++)
+			{
 
 				pupulateDevelopers(rows, developers, i);
 			}
 
 
 
-			final int noOfPMs = Integer.parseInt(Files.readAllLines(Paths.get("resources/a_solar.txt")).get(rows+1+noOfDevs));
+			final int noOfPMs = Integer.parseInt(Files.readAllLines(Paths.get("resources/a_solar.txt")).get(rows + 2 + noOfDevs));
 
 
 			final List<Manager> managers = new ArrayList<>();
 
-			for(int i = 0; i < noOfPMs; i++){
+			for (int i = 0; i < noOfPMs; i++)
+			{
 
 				pupulateManagers(rows, noOfPMs, managers, i);
 
@@ -108,42 +104,48 @@ public class InputReader
 		catch (final FileNotFoundException e)
 		{
 			e.printStackTrace();
-		} catch (final IOException e) {
+		}
+		catch (final IOException e)
+		{
 			e.printStackTrace();
 		}
 	}
 
-	private static void pupulateManagers(final int rows, final int noOfPMs, final List<Manager> managers, final int i) throws IOException {
-		final String managerDetail = Files.readAllLines(Paths.get("resources/a_solar.txt")).get(noOfPMs+rows+i+1);
+	private static void pupulateManagers(final int rows, final int noOfPMs, final List<Manager> managers, final int i)
+			throws IOException
+	{
+		final String managerDetail = Files.readAllLines(Paths.get("resources/a_solar.txt")).get(noOfPMs + rows + i + 2);
 		final String[] managerDetailArr = managerDetail.split("\\s");
 
 
-		final int id = i+1;
+		final int id = i + 1;
 		final String company = managerDetailArr[0];
 		final int bonus = Integer.parseInt(managerDetailArr[1]);
 
-		final Manager manager = new Manager(id, company,bonus);
+		final Manager manager = new Manager(id, company, bonus);
 
 		managers.add(manager);
 	}
 
-	private static void pupulateDevelopers(final int rows, final List<Developer> developers, final int i) throws IOException {
-		final String developerDetail = Files.readAllLines(Paths.get("resources/a_solar.txt")).get(rows+i+1);
+	private static void pupulateDevelopers(final int rows, final List<Developer> developers, final int i) throws IOException
+	{
+		final String developerDetail = Files.readAllLines(Paths.get("resources/a_solar.txt")).get(rows + i + 2);
 		final String[] developerDetailArr = developerDetail.split("\\s");
 
 
-		final int id = i+1;
+		final int id = i + 1;
 		final String company = developerDetailArr[0];
 		final int bonus = Integer.parseInt(developerDetailArr[1]);
 		final List<String> skills = new ArrayList<>();
 		final int skillCount = Integer.parseInt(developerDetailArr[2]);
 
-		for(int j = 0; j < skillCount; j++){
+		for (int j = 0; j < skillCount; j++)
+		{
 			skills.add(developerDetailArr[j]);
 		}
 
 
-		final Developer developer = new Developer(id,company,bonus,skills,skillCount);
+		final Developer developer = new Developer(id, company, bonus, skills, skillCount);
 		developers.add(developer);
 	}
 
