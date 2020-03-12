@@ -14,6 +14,14 @@ public class Developer
 	int skillCount;
 
 
+	public Developer(final int id, final String company, final int bonus, final List<String> skills, final int skillCount) {
+		this.id = id;
+		this.company = company;
+		this.bonus = bonus;
+		this.skills = skills;
+		this.skillCount = skillCount;
+	}
+
 	public Developer(final int id, final String company, final int bonus, final List<String> skills, final Point seatingLocation,
 			final int skillCount)
 	{

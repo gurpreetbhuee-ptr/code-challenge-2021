@@ -1,6 +1,8 @@
 package reply.codechalange.main;
 
 import reply.codechalange.data.Customer;
+import reply.codechalange.data.Developer;
+import reply.codechalange.data.Manager;
 import reply.codechalange.data.Output;
 import reply.codechalange.data.Point;
 import reply.codechalange.data.RouteIterator;
@@ -40,83 +42,59 @@ public class InputReader
 			System.out.println("Start reading file......");
 			//todo add the traversing the file logic understanding the input file
 
-			final String firstLine = sc.nextLine();
+
+			final String firstLine = Files.readAllLines(Paths.get("resources/a_solar.txt")).get(0);
+
+
 			final String[] firstArr = firstLine.split("\\s");
-			int customerOffices = Integer.parseInt(firstArr[2]);
+
+			//int customerOffices = Integer.parseInt(firstArr[2]);
+
+
 
 			final int cols = Integer.parseInt(firstArr[0]);
 			final int rows = Integer.parseInt(firstArr[1]);
+
+			System.out.println("cols   "+ cols);
+
+			System.out.println("rows   "+ rows);
+
 			final String[][] officeMap = new String[rows][cols];
 
-			final String noOfDevs = Files.readAllLines(Paths.get("resources/a_solar.txt")).get(rows+2);
+			final int noOfDevs = Integer.parseInt(Files.readAllLines(Paths.get("resources/a_solar.txt")).get(rows+1).trim());
 
+			System.out.println("noOfDevs"+ noOfDevs);
 
 
 			for (int i = 0; i < rows; i++) {
-				String placeLine = Files.readAllLines(Paths.get("resources/a_solar.txt")).get(rows+3);
+				final String placeLine = Files.readAllLines(Paths.get("resources/a_solar.txt")).get(i+1);
 				for (int j = 0; j < cols; j++) {
+					System.out.println("placeLine.charAt(j)"+ placeLine.charAt(j));
 					//reading from file 1 and 0 if 1 then store true else store false in grid
 					officeMap[i][j] = String.valueOf(placeLine.charAt(j));
 
 				}
 			}
 
+			final List<Developer> developers = new ArrayList<>();
 
+			for(int i = 0; i < noOfDevs; i++){
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-			
-
-
-
-			final List<Customer> customers = new ArrayList<>();
-			int customerId = 1;
-			while (customerOffices > 0)
-			{
-				final String cutomerOffice = sc.nextLine();
-				final String[] arrCustOffice = cutomerOffice.split("\\s");
-
-				final Point point = new Point(Integer.parseInt(arrCustOffice[0]) - 1, Integer.parseInt(arrCustOffice[1]) - 1, null);
-				final Customer customer = new Customer(customerId, point,
-						Integer.parseInt(arrCustOffice[2]));
-				customers.add(customer);
-
-				customerOffices--;
-				customerId++;
+				pupulateDevelopers(rows, developers, i);
 			}
 
+
+
+			final int noOfPMs = Integer.parseInt(Files.readAllLines(Paths.get("resources/a_solar.txt")).get(rows+1+noOfDevs));
+
+
+			final List<Manager> managers = new ArrayList<>();
+
+			for(int i = 0; i < noOfPMs; i++){
+
+				pupulateManagers(rows, noOfPMs, managers, i);
+
+			}
 
 
 			System.out.println("Finished reading file......");
@@ -130,9 +108,43 @@ public class InputReader
 		catch (final FileNotFoundException e)
 		{
 			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private static void pupulateManagers(final int rows, final int noOfPMs, final List<Manager> managers, final int i) throws IOException {
+		final String managerDetail = Files.readAllLines(Paths.get("resources/a_solar.txt")).get(noOfPMs+rows+i+1);
+		final String[] managerDetailArr = managerDetail.split("\\s");
+
+
+		final int id = i+1;
+		final String company = managerDetailArr[0];
+		final int bonus = Integer.parseInt(managerDetailArr[1]);
+
+		final Manager manager = new Manager(id, company,bonus);
+
+		managers.add(manager);
+	}
+
+	private static void pupulateDevelopers(final int rows, final List<Developer> developers, final int i) throws IOException {
+		final String developerDetail = Files.readAllLines(Paths.get("resources/a_solar.txt")).get(rows+i+1);
+		final String[] developerDetailArr = developerDetail.split("\\s");
+
+
+		final int id = i+1;
+		final String company = developerDetailArr[0];
+		final int bonus = Integer.parseInt(developerDetailArr[1]);
+		final List<String> skills = new ArrayList<>();
+		final int skillCount = Integer.parseInt(developerDetailArr[2]);
+
+		for(int j = 0; j < skillCount; j++){
+			skills.add(developerDetailArr[j]);
+		}
+
+
+		final Developer developer = new Developer(id,company,bonus,skills,skillCount);
+		developers.add(developer);
 	}
 
 
