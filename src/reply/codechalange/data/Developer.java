@@ -106,4 +106,10 @@ public class Developer implements Employee
 	{
 		isAllocated = allocated;
 	}
+
+	@Override
+	public String toString() {
+		return "Developer{" + "id=" + id + ", company='" + company + '\'' + ", bonus=" + bonus + ", skills=" + skills + ", seatingLocation=" + seatingLocation
+				+ ", skillCount=" + skillCount + '}';
+	}
 }

@@ -65,4 +65,13 @@ public class SeatingLocations
 		this.available = available;
 		this.isDevLocation = isDevLocation;
 	}
+
+	public SeatingLocations() {
+	}
+
+	@Override
+	public String toString() {
+		return "SeatingLocations{" + "point=" + point + ", company='" + company + '\'' + ", available=" + available + ", empId=" + empId + ", isDevLocation="
+				+ isDevLocation + '}';
+	}
 }
