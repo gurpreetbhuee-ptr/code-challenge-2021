@@ -10,8 +10,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +31,7 @@ public class InputReader
 	public static void main(final String[] args)
 	{
 		//todo change the file with the input file
-		final File f = new File("resources/1_victoria_lake.txt");
+		final File f = new File("resources/a_solar.txt");
 		try
 		{
 			final FileInputStream inputStream = new FileInputStream(f);
@@ -41,9 +44,62 @@ public class InputReader
 			final String[] firstArr = firstLine.split("\\s");
 			int customerOffices = Integer.parseInt(firstArr[2]);
 
-			final int n = Integer.parseInt(firstArr[0]);
-			final int m = Integer.parseInt(firstArr[1]);
-			final int[][] grid = new int[m][n];
+			final int cols = Integer.parseInt(firstArr[0]);
+			final int rows = Integer.parseInt(firstArr[1]);
+			final String[][] officeMap = new String[rows][cols];
+
+			final String noOfDevs = Files.readAllLines(Paths.get("resources/a_solar.txt")).get(rows+2);
+
+
+
+			for (int i = 0; i < rows; i++) {
+				String placeLine = Files.readAllLines(Paths.get("resources/a_solar.txt")).get(rows+3);
+				for (int j = 0; j < cols; j++) {
+					//reading from file 1 and 0 if 1 then store true else store false in grid
+					officeMap[i][j] = String.valueOf(placeLine.charAt(j));
+
+				}
+			}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			
+
+
 
 			final List<Customer> customers = new ArrayList<>();
 			int customerId = 1;
@@ -73,6 +129,8 @@ public class InputReader
 		}
 		catch (final FileNotFoundException e)
 		{
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
