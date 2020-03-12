@@ -22,7 +22,7 @@ import reply.codechalange.data.*;
 
 public class InputReader
 {
-	public static final String RESOURCES_TXT = "resources/a_solar.txt";
+	public static final String RESOURCES_TXT = "resources/d_maelstrom.txt";
 	public static Map<Character, Integer> terrainValueMap = new HashMap<>();
 
 	public static void main(final String[] args)
@@ -82,8 +82,6 @@ public class InputReader
 					seatingLocation.setPoint(new Point(i, j));
 
 					seatingLocations[i][j] = seatingLocation;
-
-					System.out.println(seatingLocation.toString());
 
 				}
 			}
@@ -178,21 +176,9 @@ public class InputReader
 				}
 			}
 
-			System.out.println("Finished reading file......");
 
 
-			for (final Manager manager : managers)
-			{
-				System.out.println(manager.toString());
-			}
-			for (final Developer developer : developers)
-			{
-				System.out.println(developer.toString());
-			}
 
-
-			System.out.println("Start converting response ....");
-			//todo add the conversion logic of response to the result file
 			final List<Employee> employeeList = new ArrayList<>();
 
 			developers.sort(new Comparator<Developer>()
@@ -364,7 +350,7 @@ public class InputReader
 	{
 		try
 		{
-			final PrintWriter out = new PrintWriter(new FileWriter("resources/output.txt", false), true);
+			final PrintWriter out = new PrintWriter(new FileWriter("resources/d_maelstrom_response.txt", false), true);
 			objects.forEach(emp ->
 			{
 				out.write(emp + "\n");
