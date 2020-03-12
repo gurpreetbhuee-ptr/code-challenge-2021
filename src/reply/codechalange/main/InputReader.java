@@ -16,16 +16,19 @@ import java.util.Scanner;
 
 import reply.codechalange.data.Developer;
 import reply.codechalange.data.Manager;
+import reply.codechalange.data.Point;
+import reply.codechalange.data.SeatingLocations;
 
 
 public class InputReader
 {
+	public static final String RESOURCES_TXT = "resources/a_solar.txt";
 	public static Map<Character, Integer> terrainValueMap = new HashMap<>();
 
 	public static void main(final String[] args)
 	{
 		//todo change the file with the input file
-		final File f = new File("resources/a_solar.txt");
+		final File f = new File(RESOURCES_TXT);
 		try
 		{
 			final FileInputStream inputStream = new FileInputStream(f);
@@ -35,7 +38,7 @@ public class InputReader
 			//todo add the traversing the file logic understanding the input file
 
 
-			final String firstLine = Files.readAllLines(Paths.get("resources/a_solar.txt")).get(0);
+			final String firstLine = Files.readAllLines(Paths.get(RESOURCES_TXT)).get(0);
 
 
 			final String[] firstArr = firstLine.split("\\s");
@@ -51,20 +54,33 @@ public class InputReader
 
 			System.out.println("rows   " + rows);
 
-			final String[][] officeMap = new String[rows][cols];
+			//final String[][] officeMap = new String[rows][cols];
 
-			final int noOfDevs = Integer.parseInt(Files.readAllLines(Paths.get("resources/a_solar.txt")).get(rows + 1).trim());
+
+			final SeatingLocations[][] seatingLocations = new SeatingLocations[rows][cols];
+
+			final int noOfDevs = Integer.parseInt(Files.readAllLines(Paths.get(RESOURCES_TXT)).get(rows + 1).trim());
 
 			System.out.println("noOfDevs" + noOfDevs);
 
 
 			for (int i = 0; i < rows; i++)
 			{
-				final String placeLine = Files.readAllLines(Paths.get("resources/a_solar.txt")).get(i + 1);
+				final String placeLine = Files.readAllLines(Paths.get(RESOURCES_TXT)).get(i + 1);
 				for (int j = 0; j < cols; j++)
 				{
 					//reading from file 1 and 0 if 1 then store true else store false in grid
-					officeMap[i][j] = String.valueOf(placeLine.charAt(j));
+
+					final SeatingLocations seatingLocation = new SeatingLocations();
+
+					if(placeLine.charAt(j) != '#'){
+						seatingLocation.setAvailable(true);
+					}
+					seatingLocation.setPoint(new Point(i,j));
+
+					seatingLocations[i][j] = seatingLocation;
+
+					System.out.println(seatingLocation.toString());
 
 				}
 			}
@@ -79,7 +95,7 @@ public class InputReader
 
 
 
-			final int noOfPMs = Integer.parseInt(Files.readAllLines(Paths.get("resources/a_solar.txt")).get(rows + 2 + noOfDevs));
+			final int noOfPMs = Integer.parseInt(Files.readAllLines(Paths.get(RESOURCES_TXT)).get(rows + 2 + noOfDevs));
 
 
 			final List<Manager> managers = new ArrayList<>();
@@ -113,7 +129,7 @@ public class InputReader
 	private static void pupulateManagers(final int rows, final int noOfDevs, final List<Manager> managers, final int i)
 			throws IOException
 	{
-		final String managerDetail = Files.readAllLines(Paths.get("resources/a_solar.txt")).get(noOfDevs + rows + i + 3);
+		final String managerDetail = Files.readAllLines(Paths.get(RESOURCES_TXT)).get(noOfDevs + rows + i + 3);
 		final String[] managerDetailArr = managerDetail.split("\\s");
 
 
@@ -129,7 +145,7 @@ public class InputReader
 
 	private static void pupulateDevelopers(final int rows, final List<Developer> developers, final int i) throws IOException
 	{
-		final String developerDetail = Files.readAllLines(Paths.get("resources/a_solar.txt")).get(rows + i + 2);
+		final String developerDetail = Files.readAllLines(Paths.get(RESOURCES_TXT)).get(rows + i + 2);
 		final String[] developerDetailArr = developerDetail.split("\\s");
 
 
