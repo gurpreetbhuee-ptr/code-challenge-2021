@@ -16,10 +16,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
 
-import reply.codechalange.data.Developer;
-import reply.codechalange.data.Manager;
-import reply.codechalange.data.Point;
-import reply.codechalange.data.SeatingLocations;
+import reply.codechalange.data.*;
 
 
 public class InputReader
@@ -338,21 +335,20 @@ public class InputReader
 
 	}
 
-
-	public static void WriteObjectToFile(final List<Object> objects)
+	public static void WriteObjectToFile(final List<Employee> objects)
 	{
 		try
 		{
 			final PrintWriter out = new PrintWriter(new FileWriter("resources/output.txt", false), true);
 			out.write(" Test " + " Value ");
 			out.write(objects.size() + "\n");
-			objects.forEach(result ->
+			objects.forEach(emp ->
 			{
-				out.write(" " + "  ");
+				out.write(emp + "\n");
 
 			});
 			out.close();
-			System.out.println("The Object  was succesfully written to a file");
+			System.out.println("The Object  was successfully written to a file");
 
 		}
 		catch (final Exception ex)

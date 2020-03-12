@@ -76,8 +76,16 @@ public class Manager implements Employee
 		this.seatingLocation = seatingLocation;
 	}
 
+
 	@Override
-	public String toString() {
-		return "Manager{" + "id=" + id + ", company='" + company + '\'' + ", bonus=" + bonus + ", seatingLocation=" + seatingLocation + '}';
+	public String toString()
+	{
+		if (isAllocated)
+		{
+			return seatingLocation.y + " " + seatingLocation.x;
+		} else
+		{
+			return "X";
+		}
 	}
 }
