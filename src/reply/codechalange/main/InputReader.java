@@ -25,10 +25,22 @@ public class InputReader
 	public static final String RESOURCES_TXT = "resources/a_solar.txt";
 	public static Map<Character, Integer> terrainValueMap = new HashMap<>();
 
+
+
+
 	public static void main(final String[] args)
 	{
 		//todo change the file with the input file
 		final File f = new File(RESOURCES_TXT);
+
+		List<String> lines = new ArrayList<>();
+
+		try {
+			lines = Files.readAllLines(Paths.get(RESOURCES_TXT));
+		} catch (final IOException e) {
+			e.printStackTrace();
+		}
+
 		try
 		{
 			final FileInputStream inputStream = new FileInputStream(f);
@@ -38,7 +50,7 @@ public class InputReader
 			//todo add the traversing the file logic understanding the input file
 
 
-			final String firstLine = Files.readAllLines(Paths.get(RESOURCES_TXT)).get(0);
+			final String firstLine = lines.get(0);
 
 
 			final String[] firstArr = firstLine.split("\\s");
@@ -59,14 +71,14 @@ public class InputReader
 
 			final SeatingLocations[][] seatingLocations = new SeatingLocations[rows][cols];
 
-			final int noOfDevs = Integer.parseInt(Files.readAllLines(Paths.get(RESOURCES_TXT)).get(rows + 1).trim());
+			final int noOfDevs = Integer.parseInt(lines.get(rows + 1).trim());
 
 			System.out.println("noOfDevs" + noOfDevs);
 
 
 			for (int i = 0; i < rows; i++)
 			{
-				final String placeLine = Files.readAllLines(Paths.get(RESOURCES_TXT)).get(i + 1);
+				final String placeLine = lines.get(i + 1);
 				for (int j = 0; j < cols; j++)
 				{
 					//reading from file 1 and 0 if 1 then store true else store false in grid
@@ -93,7 +105,7 @@ public class InputReader
 			for (int i = 0; i < noOfDevs; i++)
 			{
 
-				pupulateDevelopers(rows, developers, i);
+				pupulateDevelopers(rows, developers, i, lines);
 			}
 
 
@@ -109,7 +121,7 @@ public class InputReader
 
 
 
-			final int noOfPMs = Integer.parseInt(Files.readAllLines(Paths.get(RESOURCES_TXT)).get(rows + 2 + noOfDevs));
+			final int noOfPMs = Integer.parseInt(lines.get(rows + 2 + noOfDevs));
 
 
 			final List<Manager> managers = new ArrayList<>();
@@ -117,7 +129,7 @@ public class InputReader
 			for (int i = 0; i < noOfPMs; i++)
 			{
 
-				pupulateManagers(rows, noOfDevs, managers, i);
+				pupulateManagers(rows, noOfDevs, managers, i, lines);
 
 			}
 
@@ -321,10 +333,10 @@ public class InputReader
 
 	}
 
-	private static void pupulateManagers(final int rows, final int noOfDevs, final List<Manager> managers, final int i)
+	private static void pupulateManagers(final int rows, final int noOfDevs, final List<Manager> managers, final int i, final List<String> lines)
 			throws IOException
 	{
-		final String managerDetail = Files.readAllLines(Paths.get(RESOURCES_TXT)).get(noOfDevs + rows + i + 3);
+		final String managerDetail = lines.get(noOfDevs + rows + i + 3);
 		final String[] managerDetailArr = managerDetail.split("\\s");
 
 
@@ -337,9 +349,9 @@ public class InputReader
 		managers.add(manager);
 	}
 
-	private static void pupulateDevelopers(final int rows, final List<Developer> developers, final int i) throws IOException
+	private static void pupulateDevelopers(final int rows, final List<Developer> developers, final int i, final List<String> lines) throws IOException
 	{
-		final String developerDetail = Files.readAllLines(Paths.get(RESOURCES_TXT)).get(rows + i + 2);
+		final String developerDetail = lines.get(rows + i + 2);
 		final String[] developerDetailArr = developerDetail.split("\\s");
 
 
