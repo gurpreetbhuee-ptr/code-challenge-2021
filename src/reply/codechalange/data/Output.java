@@ -3,18 +3,16 @@ package reply.codechalange.data;
 import java.io.Serializable;
 
 
-public class Output  implements Serializable
+public class Output implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	int x;
 	int y;
-	String path;
 
-	public Output(final int x, final int y, final String path)
+	public Output(final int x, final int y)
 	{
 		this.x = x;
 		this.y = y;
-		this.path = path;
 	}
 
 	public int getX()
@@ -37,15 +35,6 @@ public class Output  implements Serializable
 		this.y = y;
 	}
 
-	public String getPath()
-	{
-		return path;
-	}
-
-	public void setPath(final String path)
-	{
-		this.path = path;
-	}
 
 	@Override
 	public String toString()
@@ -53,7 +42,6 @@ public class Output  implements Serializable
 		return "Output{" +
 				"x=" + x +
 				", y=" + y +
-				", path='" + path + '\'' +
 				'}';
 	}
 }

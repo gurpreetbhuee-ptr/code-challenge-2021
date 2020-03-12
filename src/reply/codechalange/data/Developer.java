@@ -24,7 +24,7 @@ public class Developer
 		this.seatingLocation = seatingLocation;
 		this.skillCount = skillCount;
 	}
-    
+
 
 	public int getId()
 	{
