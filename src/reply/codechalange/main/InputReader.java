@@ -63,7 +63,6 @@ public class InputReader
 				final String placeLine = Files.readAllLines(Paths.get("resources/a_solar.txt")).get(i + 1);
 				for (int j = 0; j < cols; j++)
 				{
-					System.out.println("placeLine.charAt(j)" + placeLine.charAt(j));
 					//reading from file 1 and 0 if 1 then store true else store false in grid
 					officeMap[i][j] = String.valueOf(placeLine.charAt(j));
 
@@ -88,7 +87,7 @@ public class InputReader
 			for (int i = 0; i < noOfPMs; i++)
 			{
 
-				pupulateManagers(rows, noOfPMs, managers, i);
+				pupulateManagers(rows, noOfDevs, managers, i);
 
 			}
 
@@ -111,10 +110,10 @@ public class InputReader
 		}
 	}
 
-	private static void pupulateManagers(final int rows, final int noOfPMs, final List<Manager> managers, final int i)
+	private static void pupulateManagers(final int rows, final int noOfDevs, final List<Manager> managers, final int i)
 			throws IOException
 	{
-		final String managerDetail = Files.readAllLines(Paths.get("resources/a_solar.txt")).get(noOfPMs + rows + i + 2);
+		final String managerDetail = Files.readAllLines(Paths.get("resources/a_solar.txt")).get(noOfDevs + rows + i + 3);
 		final String[] managerDetailArr = managerDetail.split("\\s");
 
 
@@ -124,6 +123,7 @@ public class InputReader
 
 		final Manager manager = new Manager(id, company, bonus);
 
+		System.out.println(manager.toString());
 		managers.add(manager);
 	}
 
@@ -141,12 +141,14 @@ public class InputReader
 
 		for (int j = 0; j < skillCount; j++)
 		{
-			skills.add(developerDetailArr[j]);
+			skills.add(developerDetailArr[3+j]);
 		}
 
 
 		final Developer developer = new Developer(id, company, bonus, skills, skillCount);
 		developers.add(developer);
+
+		System.out.println(developer.toString());
 	}
 
 
