@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -190,8 +191,30 @@ public class InputReader
 
 			System.out.println("Start converting response ....");
 			//todo add the conversion logic of response to the result file
+			final List<Employee> employeeList = new ArrayList<>();
 
-			WriteObjectToFile(new ArrayList<>());
+			developers.sort(new Comparator<Developer>()
+			{
+				@Override
+				public int compare(final Developer o1, final Developer o2)
+				{
+					return Integer.compare(o1.getId(), o2.getId());
+				}
+			});
+
+			managers.sort(new Comparator<Manager>()
+			{
+				@Override
+				public int compare(final Manager o1, final Manager o2)
+				{
+					return Integer.compare(o1.getId(), o2.getId());
+				}
+			});
+
+
+			employeeList.addAll(developers);
+			employeeList.addAll(managers);
+			WriteObjectToFile(new ArrayList<>(employeeList));
 		}
 		catch (final FileNotFoundException e)
 		{
@@ -340,8 +363,6 @@ public class InputReader
 		try
 		{
 			final PrintWriter out = new PrintWriter(new FileWriter("resources/output.txt", false), true);
-			out.write(" Test " + " Value ");
-			out.write(objects.size() + "\n");
 			objects.forEach(emp ->
 			{
 				out.write(emp + "\n");
