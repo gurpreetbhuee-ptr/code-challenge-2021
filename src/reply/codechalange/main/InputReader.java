@@ -73,10 +73,13 @@ public class InputReader
 
 					final SeatingLocations seatingLocation = new SeatingLocations();
 
-					if(placeLine.charAt(j) != '#'){
+					if (placeLine.charAt(j) != '#')
+					{
 						seatingLocation.setAvailable(true);
+						if (placeLine.charAt(j) == '_')
+							seatingLocation.setDevLocation(true);
 					}
-					seatingLocation.setPoint(new Point(i,j));
+					seatingLocation.setPoint(new Point(i, j));
 
 					seatingLocations[i][j] = seatingLocation;
 
@@ -157,7 +160,7 @@ public class InputReader
 
 		for (int j = 0; j < skillCount; j++)
 		{
-			skills.add(developerDetailArr[3+j]);
+			skills.add(developerDetailArr[3 + j]);
 		}
 
 
