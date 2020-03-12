@@ -11,14 +11,20 @@ public class Developer
 	int bonus;
 	List<String> skills;
 	Point seatingLocation;
+	int skillCount;
 
-	public Developer(final int id, final String company, final int bonus, final List<String> skills)
+
+	public Developer(final int id, final String company, final int bonus, final List<String> skills, final Point seatingLocation,
+			final int skillCount)
 	{
 		this.id = id;
 		this.company = company;
 		this.bonus = bonus;
 		this.skills = skills;
+		this.seatingLocation = seatingLocation;
+		this.skillCount = skillCount;
 	}
+    
 
 	public int getId()
 	{
@@ -69,6 +75,17 @@ public class Developer
 	public void setSkills(final List<String> skills)
 	{
 		this.skills = skills;
+	}
+
+
+	public int getSkillCount()
+	{
+		return skillCount;
+	}
+
+	public void setSkillCount(final int skillCount)
+	{
+		this.skillCount = skillCount;
 	}
 
 
